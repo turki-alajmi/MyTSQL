@@ -132,6 +132,7 @@ ORDER BY
     avg_speed_kmph;
 /*
  runner's first order is always the slowest, maybe they are nervous?
+ Also runner 2 speed is doubling on every order, danny need to give runner 2 a raise.
  */
 
 ------------------------------------------------------------------------
