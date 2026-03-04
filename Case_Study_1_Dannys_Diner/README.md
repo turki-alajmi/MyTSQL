@@ -4,8 +4,8 @@
 
 ## 📋 Table of Contents
 - [The Business Problem](#-the-business-problem)
-- [Tech Stack Used](#-tech-stack-used)
-- [Entity Relationship Diagram](#-entity-relationship-diagram)
+- [Tech Stack Used](#%EF%B8%8F-tech-stack-used)
+- [Entity Relationship Diagram](#%EF%B8%8F-entity-relationship-diagram)
 - [Highlight Queries & Business Insights](#-highlight-queries--business-insights)
 
 ---
