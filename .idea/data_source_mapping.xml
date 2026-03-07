@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="DataSourcePerFileMappings">
-    <file url="file://$PROJECT_DIR$/Case_Study_1_Dannys_Diner/01_Dannys_Diner_Solutions.sql" value="78022eb5-a566-449c-ae01-f83e50eff0a0" />
-    <file url="file://$PROJECT_DIR$/Case_Study_1_Dannys_Diner/02_Bonus_Questions.sql" value="78022eb5-a566-449c-ae01-f83e50eff0a0" />
-    <file url="file://$PROJECT_DIR$/Case_Study_1_Dannys_Diner/schema.sql" value="78022eb5-a566-449c-ae01-f83e50eff0a0" />
-    <file url="file://$PROJECT_DIR$/Case_Study_2_Pizza_Runner/03_C_Ingredient_Optimisation.sql" value="78022eb5-a566-449c-ae01-f83e50eff0a0" />
-  </component>
-</project>
