@@ -97,7 +97,7 @@ WITH uni AS (
         ON p.pizza_id = c.pizza_id
 ),
 -- Splits extras per order and aggregates into a comma-separated string
-    exxtras AS (
+    extra_split AS (
         SELECT
             uni_key,
             STRING_AGG(t.topping_name, ', ') AS true_extras
@@ -110,7 +110,7 @@ WITH uni AS (
 
     ),
 -- Splits exclusions per order and aggregates into a comma-separated string
-    lusion AS (
+    exclusion_split AS (
         SELECT
             uni_key,
             STRING_AGG(t.topping_name, ', ') AS true_exclusion
@@ -135,9 +135,9 @@ SELECT
         Else CONCAT(pizza_name,' - Exclude ',true_exclusion,' - Extra ',true_extras)
     end AS receipt
 FROM uni
-INNER JOIN exxtras AS plus
+INNER JOIN extra_split AS plus
     ON uni.uni_key = plus.uni_key
-INNER JOIN lusion AS minus
+INNER JOIN exclusion_split AS minus
     ON uni.uni_key = minus.uni_key;
 
 
@@ -175,7 +175,7 @@ WITH surg_key AS (
                 ON t.topping_id = TRY_CAST(TRIM(value) AS INT)
         ),
 -- Splits the extras from each unique pizza and explode it vertically
-    ex_ex AS (
+    extras_cte AS (
         SELECT
             rownum,
             t2.topping_name AS extra_ing
@@ -187,15 +187,15 @@ WITH surg_key AS (
 
     ),
 -- Splits the exclusions from each unique pizza and explode it vertically
-    ex_ex2 AS (
+    exclude_cte AS (
         SELECT
             rownum,
             t.topping_name AS excluded_ing
 
         FROM surg_key
-        OUTER APPLY STRING_SPLIT(exclusions, ',') AS lusion
+        OUTER APPLY STRING_SPLIT(exclusions, ',') AS exclusion_split
         LEFT JOIN pizza_toppings AS t
-            ON t.topping_id = TRY_CAST(TRIM(lusion.value) AS INT)
+            ON t.topping_id = TRY_CAST(TRIM(exclusion_split.value) AS INT)
 
     ),
 -- Combine the base ingredients with the extras and filter out the exclusion
@@ -209,8 +209,8 @@ WITH surg_key AS (
         WHERE ri.topping_name NOT IN (
             SELECT
                 excluded_ing
-            FROM ex_ex2
-            WHERE surg_key.rownum = ex_ex2.rownum
+            FROM exclude_cte
+            WHERE surg_key.rownum = exclude_cte.rownum
               AND excluded_ing IS NOT NULL
         )
 
@@ -218,7 +218,7 @@ WITH surg_key AS (
         SELECT
             rownum,
             extra_ing
-        FROM ex_ex
+        FROM extras_cte
 
     ),
 -- Counts each ingredient and adds 2x when there is an extra
@@ -290,7 +290,7 @@ WITH surg_key AS (
                 ON t.topping_id = TRY_CAST(TRIM(value) AS INT)
         ),
 -- Splits the extras from each unique pizza and explode it vertically
-    ex_ex AS (
+    extras_cte AS (
         SELECT
             rownum,
             t2.topping_name AS extra_ing
@@ -302,15 +302,15 @@ WITH surg_key AS (
 
     ),
 -- Splits the exclusions from each unique pizza and explode it vertically
-    ex_ex2 AS (
+    exclude_cte AS (
         SELECT
             rownum,
             t.topping_name AS excluded_ing
 
         FROM surg_key
-        OUTER APPLY STRING_SPLIT(exclusions, ',') AS lusion
+        OUTER APPLY STRING_SPLIT(exclusions, ',') AS exclusion_split
         LEFT JOIN pizza_toppings AS t
-            ON t.topping_id = TRY_CAST(TRIM(lusion.value) AS INT)
+            ON t.topping_id = TRY_CAST(TRIM(exclusion_split.value) AS INT)
 
     ),
 -- Combine the base ingredients with the extras and filter out the exclusion
@@ -324,8 +324,8 @@ WITH surg_key AS (
         WHERE ri.topping_name NOT IN (
             SELECT
                 excluded_ing
-            FROM ex_ex2
-            WHERE surg_key.rownum = ex_ex2.rownum
+            FROM exclude_cte
+            WHERE surg_key.rownum = exclude_cte.rownum
               AND excluded_ing IS NOT NULL
         )
 
@@ -333,7 +333,7 @@ WITH surg_key AS (
         SELECT
             rownum,
             extra_ing
-        FROM ex_ex
+        FROM extras_cte
 
     )
 

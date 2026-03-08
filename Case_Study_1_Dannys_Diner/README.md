@@ -26,7 +26,7 @@ Query the raw operational data to surface customer purchasing patterns, identify
 
 ## 🗄️ Entity Relationship Diagram
 
-![img_2.png](img_2.png)
+![Case1_ERD.png](Case1_ERD.png)
 
 ---
 
