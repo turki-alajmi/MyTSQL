@@ -97,7 +97,7 @@ SELECT
     SUM(abandoned_count) AS abandoned_category_products
 INTO clique_bait.category_funnel
 -- product_funnel is the table i just created in the earlier question
-FROM clique_bait.product_funnel AS l
+FROM clique_bait.product_funnel
 GROUP BY
     product_category;
 

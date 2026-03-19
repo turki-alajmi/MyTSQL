@@ -78,7 +78,7 @@ GO
 DROP TABLE IF EXISTS pizza_runner.pizza_names;
 CREATE TABLE pizza_runner.pizza_names (
   pizza_id INTEGER,
-  pizza_name VARCHAR(50)
+  pizza_name VARCHAR(MAX)
 );
 GO
 
@@ -104,7 +104,7 @@ GO
 DROP TABLE IF EXISTS pizza_runner.pizza_toppings;
 CREATE TABLE pizza_runner.pizza_toppings (
   topping_id INTEGER,
-  topping_name VARCHAR(100)
+  topping_name VARCHAR(MAX)
 );
 GO
 

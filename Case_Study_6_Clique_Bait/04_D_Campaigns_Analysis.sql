@@ -93,9 +93,7 @@ LEFT JOIN agged_strings AS ag
     -- Campaign matched on visit start time, not individual event time.
 -- LEFT JOIN preserves visits that fall outside any campaign window.
 LEFT JOIN clique_bait.campaign_identifier AS ci
-    ON gd.visit_start_time BETWEEN ci.start_date AND ci.end_date
-ORDER BY
-    user_id;
+    ON gd.visit_start_time BETWEEN ci.start_date AND ci.end_date;
 
 
 /* ---------------------------------------------------------------------------
